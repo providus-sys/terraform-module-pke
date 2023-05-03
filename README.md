@@ -1,2 +1,2 @@
-# terraform-module-pke
-PKE module
+# terraform-pke
+Terraform repository for creating PKE
