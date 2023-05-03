@@ -47,10 +47,10 @@ provider "helm" {
 
 
 locals {
-  pke_name    = basename(abspath(path.cwd))
-  pke_c_infra = var.nodes_api
-  pke_w_infra = var.nodes_worker
-  worker_labels = {
+  pke_name        = basename(abspath(path.cwd))
+  pke_node_api    = var.nodes_api
+  pke_node_worker = var.nodes_worker
+  worker_tags = {
     do_ingress = "please"
     client     = "infra"
   }
@@ -62,7 +62,7 @@ resource "rke_cluster" "pke" {
   kubernetes_version    = var.pke_k8s_version
   ignore_docker_version = true
   dynamic "nodes" {
-    for_each = local.pke_c_infra
+    for_each = local.pke_node_api
     content {
       address           = "${nodes.value}.${var.domain_name}"
       hostname_override = nodes.value
@@ -71,13 +71,13 @@ resource "rke_cluster" "pke" {
     }
   }
   dynamic "nodes" {
-    for_each = local.pke_w_infra
+    for_each = local.pke_node_worker
     content {
       address           = "${nodes.value}.${var.domain_name}"
       hostname_override = nodes.value
       user              = "root"
       role              = ["worker"]
-      labels = merge(local.worker_labels, var.worker_tags)
+      labels            = merge(local.worker_tags, var.worker_tags)
     }
   }
   upgrade_strategy {
@@ -106,7 +106,10 @@ resource "rke_cluster" "pke" {
   }
 
   authentication {
-    sans = concat(local.pke_c_infra, [format("pke-%s.%s", local.pke_name, var.domain_name)])
+    sans = concat(
+      local.pke_node_api,
+      [format("pke-%s.%s", local.pke_name, var.domain_name)]
+    )
   }
 }
 
@@ -121,4 +124,3 @@ resource "kubernetes_namespace" "namespaces" {
     ignore_changes = [metadata[0].annotations, metadata[0].labels]
   }
 }
-
