@@ -30,3 +30,9 @@ variable "worker_tags" {
   type        = map(any)
   default     = { default = "default" }
 }
+
+variable "ingress_default" {
+  description = "Set to true in case you want default nginx, or false if you plan to install custom one"
+  type = bool
+  default = true
+}

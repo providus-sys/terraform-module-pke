@@ -90,7 +90,7 @@ resource "rke_cluster" "pke" {
     }
   }
   ingress {
-    provider        = "nginx"
+    provider        = var.ingress_default == true ? "nginx" : "none"
     http_port       = 80
     https_port      = 443
     network_mode    = "hostNetwork"

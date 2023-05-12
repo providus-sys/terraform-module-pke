@@ -25,3 +25,7 @@ output "client_cert" {
   value = rke_cluster.pke.client_cert
   sensitive = true
 }
+output "admin_user" {
+  value = rke_cluster.pke.kube_admin_user
+  sensitive = true
+}
