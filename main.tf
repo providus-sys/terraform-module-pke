@@ -124,3 +124,22 @@ resource "kubernetes_namespace" "namespaces" {
     ignore_changes = [metadata[0].annotations, metadata[0].labels]
   }
 }
+resource "kubernetes_secret" "image_puller" {
+  depends_on = [kubernetes_namespace.namespaces]
+  for_each   = var.namespaces
+  metadata {
+    name      = var.image_puller
+    namespace = each.key
+  }
+  type = "kubernetes.io/dockerconfigjson"
+
+  data = {
+    ".dockerconfigjson" = jsonencode({
+      auths = {
+        (var.registry_url) = {
+          auth = base64encode("${var.registry_user}:${var.registry_pass}")
+        }
+      }
+    })
+  }
+}

@@ -33,6 +33,27 @@ variable "worker_tags" {
 
 variable "ingress_default" {
   description = "Set to true in case you want default nginx, or false if you plan to install custom one"
-  type = bool
-  default = true
+  type        = bool
+  default     = true
+}
+
+variable "image_puller" {
+  description = "Name of image puller secret used for pulling"
+  type        = string
+  default     = "imgcred"
+}
+variable "registry_url" {
+  description = "Hostname of the image registry"
+  type        = string
+  default     = "https://index.docker.io/v1/"
+}
+variable "registry_user" {
+  description = "Username for the image registry"
+  type        = string
+  default     = "_default"
+}
+variable "registry_pass" {
+  description = "Password of the image registry"
+  type        = string
+  default     = "passsword-not-set"
 }
