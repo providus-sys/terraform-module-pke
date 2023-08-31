@@ -9,12 +9,10 @@ terraform {
     # https://github.com/hashicorp/terraform-provider-kubernetes/releases
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = "2.19.0"
     }
     # https://github.com/hashicorp/terraform-provider-helm/tags
     helm = {
       source  = "hashicorp/helm"
-      version = "2.9.0"
     }
   }
 }
