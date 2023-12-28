@@ -4,7 +4,7 @@ terraform {
     # https://github.com/rancher/terraform-provider-rke/releases
     rke = {
       source  = "rancher/rke"
-      version = "1.4.2"
+      version = "1.4.3"
     }
     # https://github.com/hashicorp/terraform-provider-kubernetes/releases
     kubernetes = {
@@ -59,6 +59,7 @@ resource "rke_cluster" "pke" {
   cluster_name          = local.pke_name
   kubernetes_version    = var.pke_k8s_version
   ignore_docker_version = true
+  enable_cri_dockerd    = true
   dynamic "nodes" {
     for_each = local.pke_node_api
     content {
