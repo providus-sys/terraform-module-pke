@@ -10,10 +10,6 @@ terraform {
     kubernetes = {
       source = "hashicorp/kubernetes"
     }
-    # https://github.com/hashicorp/terraform-provider-helm/tags
-    helm = {
-      source = "hashicorp/helm"
-    }
   }
 }
 
@@ -95,11 +91,12 @@ resource "rke_cluster" "pke" {
     network_mode    = "hostNetwork"
     default_backend = true
     options = {
-      proxy-read-timeout    = "3600"
-      proxy-body-size       = "50m"
-      use-forwarded-headers = "true"
-      use-gzip              = var.use_compression == true ? "true" : "false"
-      enable-brotli         = var.use_compression == true ? "true" : "false"
+      proxy-read-timeout        = "3600"
+      proxy-body-size           = "50m"
+      use-forwarded-headers     = true
+      use-gzip                  = var.use_compression == true ? true : false
+      enable-brotli             = var.use_compression == true ? true : false
+      allow-snippet-annotations = true
     }
     node_selector = {
       do_ingress = "please"
