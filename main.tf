@@ -1,4 +1,3 @@
-
 terraform {
   required_providers {
     # https://github.com/rancher/terraform-provider-rke/releases
@@ -13,8 +12,6 @@ terraform {
   }
 }
 
-
-
 provider "kubernetes" {
   host                   = format("https://pke-%s.%s:6443", rke_cluster.pke.cluster_name, var.domain_name)
   username               = rke_cluster.pke.kube_admin_user
@@ -22,23 +19,6 @@ provider "kubernetes" {
   client_key             = rke_cluster.pke.client_key
   cluster_ca_certificate = rke_cluster.pke.ca_crt
 }
-provider "helm" {
-  kubernetes {
-    host                   = format("https://pke-%s.%s:6443", rke_cluster.pke.cluster_name, var.domain_name)
-    username               = rke_cluster.pke.kube_admin_user
-    client_certificate     = rke_cluster.pke.client_cert
-    client_key             = rke_cluster.pke.client_key
-    cluster_ca_certificate = rke_cluster.pke.ca_crt
-  }
-}
-
-## on demand
-#provider "rke" {
-#  debug = true
-#  log_file = "rke.log"
-#}
-
-
 
 locals {
   pke_name        = basename(abspath(path.cwd))
