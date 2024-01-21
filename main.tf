@@ -1,4 +1,3 @@
-
 terraform {
   required_providers {
     # https://github.com/rancher/terraform-provider-rke/releases
@@ -8,16 +7,10 @@ terraform {
     }
     # https://github.com/hashicorp/terraform-provider-kubernetes/releases
     kubernetes = {
-      source  = "hashicorp/kubernetes"
-    }
-    # https://github.com/hashicorp/terraform-provider-helm/tags
-    helm = {
-      source  = "hashicorp/helm"
+      source = "hashicorp/kubernetes"
     }
   }
 }
-
-
 
 provider "kubernetes" {
   host                   = format("https://pke-%s.%s:6443", rke_cluster.pke.cluster_name, var.domain_name)
@@ -26,23 +19,6 @@ provider "kubernetes" {
   client_key             = rke_cluster.pke.client_key
   cluster_ca_certificate = rke_cluster.pke.ca_crt
 }
-provider "helm" {
-  kubernetes {
-    host                   = format("https://pke-%s.%s:6443", rke_cluster.pke.cluster_name, var.domain_name)
-    username               = rke_cluster.pke.kube_admin_user
-    client_certificate     = rke_cluster.pke.client_cert
-    client_key             = rke_cluster.pke.client_key
-    cluster_ca_certificate = rke_cluster.pke.ca_crt
-  }
-}
-
-## on demand
-#provider "rke" {
-#  debug = true
-#  log_file = "rke.log"
-#}
-
-
 
 locals {
   pke_name        = basename(abspath(path.cwd))
@@ -95,9 +71,12 @@ resource "rke_cluster" "pke" {
     network_mode    = "hostNetwork"
     default_backend = true
     options = {
-      proxy-read-timeout    = "3600"
-      proxy-body-size       = "50m"
-      use-forwarded-headers = "true"
+      proxy-read-timeout        = "3600"
+      proxy-body-size           = "50m"
+      use-forwarded-headers     = true
+      use-gzip                  = var.use_compression == true ? true : false
+      enable-brotli             = var.use_compression == true ? true : false
+      allow-snippet-annotations = true
     }
     node_selector = {
       do_ingress = "please"

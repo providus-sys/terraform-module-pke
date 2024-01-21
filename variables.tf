@@ -36,6 +36,11 @@ variable "ingress_default" {
   type        = bool
   default     = true
 }
+variable "use_compression" {
+  description = "Use compression module on ingress"
+  type        = bool
+  default     = false
+}
 
 variable "image_puller" {
   description = "Name of image puller secret used for pulling"
