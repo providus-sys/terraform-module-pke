@@ -8,11 +8,11 @@ terraform {
     }
     # https://github.com/hashicorp/terraform-provider-kubernetes/releases
     kubernetes = {
-      source  = "hashicorp/kubernetes"
+      source = "hashicorp/kubernetes"
     }
     # https://github.com/hashicorp/terraform-provider-helm/tags
     helm = {
-      source  = "hashicorp/helm"
+      source = "hashicorp/helm"
     }
   }
 }
@@ -98,6 +98,8 @@ resource "rke_cluster" "pke" {
       proxy-read-timeout    = "3600"
       proxy-body-size       = "50m"
       use-forwarded-headers = "true"
+      use-gzip              = var.use_compression == true ? "true" : "false"
+      enable-brotli         = var.use_compression == true ? "true" : "false"
     }
     node_selector = {
       do_ingress = "please"
