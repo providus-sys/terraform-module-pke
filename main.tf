@@ -86,7 +86,8 @@ resource "rke_cluster" "pke" {
   authentication {
     sans = concat(
       local.pke_node_api,
-      [format("pke-%s.%s", local.pke_name, var.domain_name), can(var.custom_api_url) ? var.custom_api_url : ""]
+      [format("pke-%s.%s", local.pke_name, var.domain_name),
+      can(var.custom_api_url) ? var.custom_api_url : null]
     )
   }
 }
