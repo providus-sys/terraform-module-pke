@@ -62,3 +62,9 @@ variable "registry_pass" {
   type        = string
   default     = "passsword-not-set"
 }
+
+variable "custom_api_url" {
+  description = "Custom domain for answering API, used for load-balancing between control nodes"
+  type        = string
+  default     = ""
+}
