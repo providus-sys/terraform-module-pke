@@ -31,7 +31,7 @@ locals {
 }
 
 resource "rke_cluster" "pke" {
-  ssh_agent_auth        = true
+  ssh_agent_auth        = var.use_ssh_agent
   cluster_name          = local.pke_name
   kubernetes_version    = var.pke_k8s_version
   ignore_docker_version = true

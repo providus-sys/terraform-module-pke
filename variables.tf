@@ -68,3 +68,9 @@ variable "custom_api_url" {
   type        = string
   default     = ""
 }
+
+variable "use_ssh_agent" {
+  description = "Enable or disable usage of ssh agent"
+  type        = bool
+  default     = true
+}
