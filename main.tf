@@ -13,7 +13,7 @@ terraform {
 }
 
 provider "kubernetes" {
-  host                   = format("https://pke-%s.%s:6443", rke_cluster.pke.cluster_name, var.domain_name)
+  host                   = format("https://%s.%s:6443", local.pke_node_api[0], var.domain_name)
   username               = rke_cluster.pke.kube_admin_user
   client_certificate     = rke_cluster.pke.client_cert
   client_key             = rke_cluster.pke.client_key
