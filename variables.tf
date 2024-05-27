@@ -41,6 +41,11 @@ variable "use_compression" {
   type        = bool
   default     = false
 }
+variable "ingress_ncpu" {
+  description = "Set to desired number of CPUs to be used by nginx ingress controller"
+  type        = "string"
+  default     = "auto"
+}
 
 variable "image_puller" {
   description = "Name of image puller secret used for pulling"
