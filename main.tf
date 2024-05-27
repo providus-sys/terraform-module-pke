@@ -77,7 +77,7 @@ resource "rke_cluster" "pke" {
       use-gzip                  = var.use_compression == true ? true : false
       enable-brotli             = var.use_compression == true ? true : false
       allow-snippet-annotations = true
-      var.ingress_ncpu          = var.ingress_ncpu == "auto" ? "auto" : var.ingress_ncpu
+      ingress_ncpu              = var.ingress_ncpu == "auto" ? "auto" : var.ingress_ncpu
     }
     node_selector = {
       do_ingress = "please"
