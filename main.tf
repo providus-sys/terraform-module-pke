@@ -3,7 +3,7 @@ terraform {
     # https://github.com/rancher/terraform-provider-rke/releases
     rke = {
       source  = "rancher/rke"
-      version = "1.4.4"
+      version = "1.5.0"
     }
     # https://github.com/hashicorp/terraform-provider-kubernetes/releases
     kubernetes = {
