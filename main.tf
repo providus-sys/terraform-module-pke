@@ -3,7 +3,7 @@ terraform {
     # https://github.com/rancher/terraform-provider-rke/releases
     rke = {
       source  = "rancher/rke"
-      version = "1.4.4"
+      version = "1.5.0"
     }
     # https://github.com/hashicorp/terraform-provider-kubernetes/releases
     kubernetes = {
@@ -77,6 +77,7 @@ resource "rke_cluster" "pke" {
       use-gzip                  = var.use_compression == true ? true : false
       enable-brotli             = var.use_compression == true ? true : false
       allow-snippet-annotations = true
+      ingress_ncpu              = var.ingress_ncpu == "auto" ? "auto" : var.ingress_ncpu
     }
     node_selector = {
       do_ingress = "please"
