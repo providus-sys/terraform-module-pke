@@ -43,7 +43,7 @@ variable "use_compression" {
 }
 variable "ingress_ncpu" {
   description = "Set to desired number of CPUs to be used by nginx ingress controller"
-  type        = "string"
+  type        = string
   default     = "auto"
 }
 
