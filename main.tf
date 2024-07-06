@@ -30,10 +30,20 @@ locals {
   }
 }
 
+locals {
+  k8s_version = {
+    "1.24" = "v1.24.17-rancher1-1"
+    "1.25" = "v1.25.16-rancher2-3"
+    "1.26" = "v1.26.14-rancher1-1"
+    "1.27" = "v1.27.11-rancher1-1"
+    "1.28" = "v1.28.7-rancher1-1"
+  }
+}
+
 resource "rke_cluster" "pke" {
   ssh_agent_auth        = var.use_ssh_agent
   cluster_name          = local.pke_name
-  kubernetes_version    = var.pke_k8s_version
+  kubernetes_version    = lookup(var.pke_k8s_version, local.k8s_version, local.k8s_version[0])
   ignore_docker_version = true
   enable_cri_dockerd    = true
   update_only           = true
