@@ -36,6 +36,7 @@ resource "rke_cluster" "pke" {
   kubernetes_version    = var.pke_k8s_version
   ignore_docker_version = true
   enable_cri_dockerd    = true
+  update_only           = true
   dynamic "nodes" {
     for_each = local.pke_node_api
     content {
