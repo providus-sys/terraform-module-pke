@@ -30,12 +30,14 @@ locals {
   }
 }
 
+
 resource "rke_cluster" "pke" {
   ssh_agent_auth        = var.use_ssh_agent
   cluster_name          = local.pke_name
-  kubernetes_version    = var.pke_k8s_version
+  kubernetes_version    = lookup(var.k8s_version, var.pke_k8s_version)
   ignore_docker_version = true
   enable_cri_dockerd    = true
+  update_only           = true
   dynamic "nodes" {
     for_each = local.pke_node_api
     content {

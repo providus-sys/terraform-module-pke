@@ -79,3 +79,15 @@ variable "use_ssh_agent" {
   type        = bool
   default     = true
 }
+
+variable "k8s_version" {
+  type = map(string)
+  default = {
+    "1.23" = "v1.23.16-rancher2-1"
+    "1.24" = "v1.24.17-rancher1-1"
+    "1.25" = "v1.25.16-rancher2-3"
+    "1.26" = "v1.26.14-rancher1-1"
+    "1.27" = "v1.27.11-rancher1-1"
+    "1.28" = "v1.28.7-rancher1-1"
+  }
+}
