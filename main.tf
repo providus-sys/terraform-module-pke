@@ -37,7 +37,6 @@ resource "rke_cluster" "pke" {
   kubernetes_version    = lookup(var.k8s_version, var.pke_k8s_version)
   ignore_docker_version = true
   enable_cri_dockerd    = true
-  update_only           = true
   dynamic "nodes" {
     for_each = local.pke_node_api
     content {
@@ -58,7 +57,7 @@ resource "rke_cluster" "pke" {
     }
   }
   upgrade_strategy {
-    drain                        = true
+    drain                        = false
     max_unavailable_controlplane = 1
     max_unavailable_worker       = 1
     drain_input {
