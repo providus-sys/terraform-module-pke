@@ -79,6 +79,7 @@ resource "rke_cluster" "pke" {
       enable-brotli             = var.use_compression == true ? true : false
       allow-snippet-annotations = true
       worker-processes          = var.ingress_ncpu == "auto" ? "auto" : var.ingress_ncpu
+      forwarded-for-header      = var.ingress_forwarded_for == "X-Forwarded-For" ? "X-Forwarded-For" : var.ingress_forwarded_for
     }
     node_selector = {
       do_ingress = "please"
