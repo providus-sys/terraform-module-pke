@@ -91,3 +91,9 @@ variable "k8s_version" {
     "1.28" = "v1.28.7-rancher1-1"
   }
 }
+
+variable "ingress_forwarded_for" {
+  description = "Name of the header where Real IP is stored"
+  type        = string
+  default     = "X-Forwarded-For"
+}
