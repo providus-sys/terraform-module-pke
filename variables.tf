@@ -97,3 +97,9 @@ variable "ingress_forwarded_for" {
   type        = string
   default     = "X-Forwarded-For"
 }
+
+variable "max_pods" {
+  description = "Amount of pods each available for every node"
+  type        = string
+  default     = "110"
+}
