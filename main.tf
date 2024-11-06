@@ -93,6 +93,13 @@ resource "rke_cluster" "pke" {
       can(var.custom_api_url) ? var.custom_api_url : null]
     ))
   }
+  services {
+    kubelet {
+      extra_args = {
+        "max-pods": var.max_pods
+      }
+    }
+  }
 }
 
 resource "kubernetes_namespace" "namespaces" {
