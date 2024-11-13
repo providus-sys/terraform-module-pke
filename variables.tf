@@ -37,7 +37,12 @@ variable "ingress_default" {
   default     = true
 }
 variable "use_compression" {
-  description = "Use compression module on ingress"
+  description = "Use compression module (gzip) on ingress"
+  type        = bool
+  default     = false
+}
+variable "use_brotli" {
+  description = "Use brotli compression"
   type        = bool
   default     = false
 }
