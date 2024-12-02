@@ -101,7 +101,7 @@ resource "rke_cluster" "pke" {
     }
     kube_api {
       extra_args = {
-        "service-account-max-token-expiration": "31536000"
+        "service-account-max-token-expiration": "31536000s"
       }
     }
   }
