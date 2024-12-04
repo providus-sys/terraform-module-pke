@@ -99,6 +99,11 @@ resource "rke_cluster" "pke" {
         "max-pods": var.max_pods
       }
     }
+    kube_api {
+      extra_args = {
+        "service-account-max-token-expiration": "3153600s" # set it back to 31536000s after test
+      }
+    }
   }
 }
 
