@@ -95,7 +95,10 @@ variable "k8s_version" {
     "1.25" = "v1.25.16-rancher2-3"
     "1.26" = "v1.26.14-rancher1-1"
     "1.27" = "v1.27.11-rancher1-1"
-    "1.28" = "v1.28.7-rancher1-1"
+    "1.28" = "v1.28.15-rancher1-1"
+    "1.29" = "v1.29.10-rancher1-1"
+    "1.30" = "v1.30.6-rancher1-1"
+    "1.31" = "v1.31.2-rancher2-1"
   }
 }
 
