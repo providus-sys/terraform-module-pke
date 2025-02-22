@@ -71,6 +71,7 @@ resource "rke_cluster" "pke" {
     https_port      = 443
     network_mode    = "hostNetwork"
     default_backend = true
+    dns_policy      = "ClusterFirstWithHostNet"
     options = {
       proxy-read-timeout        = "3600"
       proxy-body-size           = "50m"
@@ -96,7 +97,7 @@ resource "rke_cluster" "pke" {
   services {
     kubelet {
       extra_args = {
-        "max-pods": var.max_pods
+        "max-pods" : var.max_pods
       }
     }
   }
