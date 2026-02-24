@@ -3,7 +3,7 @@ terraform {
     # https://github.com/rancher/terraform-provider-rke/releases
     rke = {
       source  = "rancher/rke"
-      version = "1.7.0"
+      version = "1.7.5"
     }
     # https://github.com/hashicorp/terraform-provider-kubernetes/releases
     kubernetes = {
@@ -34,7 +34,7 @@ locals {
 resource "rke_cluster" "pke" {
   ssh_agent_auth        = var.use_ssh_agent
   cluster_name          = local.pke_name
-  kubernetes_version    = lookup(var.k8s_version, var.pke_k8s_version)
+  kubernetes_version    = lookup(local.k8s_version, var.pke_k8s_version)
   ignore_docker_version = true
   enable_cri_dockerd    = true
   dynamic "nodes" {
@@ -91,7 +91,8 @@ resource "rke_cluster" "pke" {
     sans = compact(concat(
       local.pke_node_api,
       [format("pke-%s.%s", local.pke_name, var.domain_name),
-      can(var.custom_api_url) ? var.custom_api_url : null]
+      can(var.custom_api_url) ? var.custom_api_url : null,
+      can(var.custom_api_url2) ? var.custom_api_url2 : null]
     ))
   }
   services {

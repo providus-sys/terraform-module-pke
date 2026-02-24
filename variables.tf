@@ -5,9 +5,9 @@ variable "namespaces" {
 }
 
 variable "pke_k8s_version" {
-  description = "Version of the Kubernetes"
+  description = "Major version of the Kubernetes"
   type        = string
-  default     = "v1.23.16-rancher2-1"
+  default     = "1.23"
 }
 
 variable "nodes_api" {
@@ -80,6 +80,11 @@ variable "custom_api_url" {
   type        = string
   default     = ""
 }
+variable "custom_api_url2" {
+  description = "Additional domain for answering API, used for load-balancing between control nodes"
+  type        = string
+  default     = ""
+}
 
 variable "use_ssh_agent" {
   description = "Enable or disable usage of ssh agent"
@@ -87,18 +92,17 @@ variable "use_ssh_agent" {
   default     = true
 }
 
-variable "k8s_version" {
-  type = map(string)
-  default = {
+locals {
+  k8s_version = {
     "1.23" = "v1.23.16-rancher2-1"
     "1.24" = "v1.24.17-rancher1-1"
     "1.25" = "v1.25.16-rancher2-3"
     "1.26" = "v1.26.14-rancher1-1"
     "1.27" = "v1.27.11-rancher1-1"
     "1.28" = "v1.28.15-rancher1-1"
-    "1.29" = "v1.29.10-rancher1-1"
-    "1.30" = "v1.30.6-rancher1-1"
-    "1.31" = "v1.31.2-rancher2-1"
+    "1.29" = "v1.29.15-rancher1-1"
+    "1.30" = "v1.30.11-rancher1-1"
+    "1.31" = "v1.31.7-rancher1-1"
   }
 }
 
